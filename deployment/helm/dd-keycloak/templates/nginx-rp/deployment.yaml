@@ -16,19 +16,19 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: "{{ .Values.nginxRP.image }}"
+        image: nginx
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 4000
         volumeMounts:
           - name: nginxconf
             mountPath: /etc/nginx/conf.d/
-          - name: authInfo
-            mountPath: /www/data/
+          - name: authinfo
+            mountPath: /usr/share/nginx/public/
       volumes:
       - name: nginxconf
         configMap:
           name: nginxconf
-      - name: authInfo
+      - name: authinfo
         configMap:
-          name: authInfo
+          name: authinfo

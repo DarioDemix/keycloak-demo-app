@@ -29,9 +29,6 @@ keycloak:
     database: postgres
   proxyAddressForwarding: true
 
-nginxRP:
-  image: nginx
-
 authApp:
   image: auth-app
 
