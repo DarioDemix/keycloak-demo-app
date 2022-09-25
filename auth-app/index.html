@@ -5,15 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication App</title>
-    <script src="./main.js" defer></script>
+    <title>Keycloak Demo App</title>
+    <script src="./js/keycloak.js" defer></script>
+    <script src="./index.js" defer></script>
 </head>
 
 <body>
-    <button id="login-btn">Sign In</button>
-    <h3 id="welcome-title"></h3>
-
-    <p id="token-p"></p>
+    <h2>Keycloak Demo App</h2>
+    <div id="authenticated">
+        <h3 id="welcome-title"></h3>
+        <p id="token-p"></p>
+        <button id="logout-btn">Sign Out</button>
+    </div>
+    <div id="guest">
+        <h3>Welcome, guest</h3>
+        <button id="login-btn">Sign In</button>
+    </div>
 
 </body>
 

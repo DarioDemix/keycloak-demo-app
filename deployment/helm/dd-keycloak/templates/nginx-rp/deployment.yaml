@@ -32,3 +32,5 @@ spec:
       - name: authinfo
         configMap:
           name: authinfo
+      - name: frontend
+        
