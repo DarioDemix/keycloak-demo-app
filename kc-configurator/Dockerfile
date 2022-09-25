@@ -11,4 +11,4 @@ COPY . .
 RUN go mod tidy
 RUN go build -v -o . ./...
 
-CMD ["app"]
+CMD ["./kc-configurator"]

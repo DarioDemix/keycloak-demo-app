@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "dd-keycloak.fullname" . }}-kc-configurator
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    spec:
+      containers:
+      - name: kc-configurator
+        image: {{ .Values.kcConfigurator.image }}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: KC_URL
+          value: "{{ include "dd-keycloak.keycloak.service" . }}"
+        - name: RP_URL
+          value: "http://{{ include "dd-keycloak.nginx-rp.service.name" . }}:4000"
+        - name: USER
+          value: {{ .Values.keycloak.auth.adminUser }}
+        - name: PASSWORD
+          value: {{ .Values.keycloak.auth.adminPassword }}
+      restartPolicy: OnFailure
+  backoffLimit: 6

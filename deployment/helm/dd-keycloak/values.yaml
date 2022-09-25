@@ -12,6 +12,8 @@ authInfo:
   realm: demo
   client: auth-app
   clientSecret: ""
+  username: catoblepa
+  password: analcolicomoro
 
 keycloak:
   auth:
@@ -34,3 +36,6 @@ authApp:
 
 authInfoProvider:
   image: auth-info-provider
+
+kcConfigurator:
+  image: kc-configurator

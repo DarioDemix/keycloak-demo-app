@@ -69,10 +69,14 @@ Create the name of the service account to use
 {{- "8081" }}
 {{- end -}}
 
-{{- define "dd-keycloak.authInfoProvider.service.name" -}}
-{{- "auth-info-provider-svc" }}
+{{- define "dd-keycloak.nginx-rp.service.name" -}}
+{{- "nginx-rp-svc" }}
 {{- end -}}
 
-{{- define "dd-keycloak.authInfoProvider.service.port" -}}
-{{- "8082" }}
+{{- define "dd-keycloak.nginx-rp.service" -}}
+{{- printf "http://%s:%v" (include "keycloak.fullname" .Subcharts.keycloak) .Values.keycloak.service.ports.http }}
+{{- end -}}
+
+{{- define "dd-keycloak.keycloak.service" -}}
+{{- printf "http://%s:%v" (include "keycloak.fullname" .Subcharts.keycloak) .Values.keycloak.service.ports.http }}
 {{- end -}}

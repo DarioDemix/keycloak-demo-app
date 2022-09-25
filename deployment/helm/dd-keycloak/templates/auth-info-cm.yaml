@@ -8,6 +8,8 @@ data:
     {
       "realm": "{{ .realm }}",
       "client": "{{ .client }}",
-      "clientSecret": "{{ .clientSecret }}"
+      "clientSecret": "{{ .clientSecret }}",
+      "username": "{{ .username }}",
+      "password": "{{ .password }}"
     }
     {{- end }}
