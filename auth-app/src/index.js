@@ -1,13 +1,13 @@
 const loginBtn = document.querySelector("#login-btn");
 
 fetchAuthInfo().then(authInfo => {
-    const {realm, client, clientSecret} = authInfo;
+    const { realm, client, clientSecret } = authInfo;
 
     const openIdConnectUrl = `/realms/${realm}/protocol/openid-connect`;
     const loginURL = `${openIdConnectUrl}/auth?response_type=code&client_id=${client}&redirect_uri=${window.location.origin}`;
 
-    const queryParams =  parseQueryParams()
-   
+    const queryParams = parseQueryParams()
+
     if (queryParams) {
         fetchToken(queryParams, openIdConnectUrl, authInfo)
             .then(res => res.json())
@@ -19,7 +19,7 @@ fetchAuthInfo().then(authInfo => {
 
                     loginBtn.remove()
                     document.getElementById("welcome-title").innerText = `Welcome, ${payload.preferred_username}`
-                    
+
                     document.getElementById("token-p").innerText = JSON.stringify(payload, null, 4);
 
                 }
@@ -30,8 +30,8 @@ fetchAuthInfo().then(authInfo => {
 });
 
 function fetchToken(queryParams, openIdConnectUrl, authInfo) {
-    const {client, clientSecret} = authInfo
-    const {sessionState, code} = queryParams
+    const { client, clientSecret } = authInfo
+    const { sessionState, code } = queryParams
 
     const tokenAPI = `${openIdConnectUrl}/token`;
 
@@ -47,7 +47,7 @@ function fetchToken(queryParams, openIdConnectUrl, authInfo) {
 
     return fetch(
         tokenAPI,
-        { 
+        {
             method: "POST",
             body: buildBody(params),
         }
@@ -66,9 +66,9 @@ function parseQueryParams() {
 }
 
 async function fetchAuthInfo() {
-    const res = await fetch(`/info`)
+    const res = await fetch(`/public/authInfo.json`)
     return await res.json()
-    
+
 };
 
 function bindListeners(loginURL) {
@@ -88,4 +88,4 @@ function parseJwt(token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(atob(base64));
-  }
+}

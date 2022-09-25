@@ -22,8 +22,4 @@ data:
         location ~ ^/(js|realms|resources|robots.txt)/ {
             proxy_pass http://{{ .Release.Name }}-keycloak:{{ .Values.keycloak.service.ports.http }};
         }
-
-        location /info {
-            proxy_pass http://{{ include "dd-keycloak.authInfoProvider.service.name" . }}:{{ include "dd-keycloak.authInfoProvider.service.port" . }};
-        }
     }
