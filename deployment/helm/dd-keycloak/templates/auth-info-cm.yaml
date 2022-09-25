@@ -1,0 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: authInfo
+data:
+  authInfo.json: |
+    {{- with .Values.authInfo }}
+    {
+      "realm": "{{ .realm }}",
+      "client": "{{ .client }}",
+      "clientSecret": "{{ .clientSecret }}"
+    }
+    {{- end }}

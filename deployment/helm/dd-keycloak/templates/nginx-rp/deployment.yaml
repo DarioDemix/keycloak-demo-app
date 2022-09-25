@@ -23,7 +23,12 @@ spec:
         volumeMounts:
           - name: nginxconf
             mountPath: /etc/nginx/conf.d/
+          - name: authInfo
+            mountPath: /www/data/
       volumes:
       - name: nginxconf
         configMap:
           name: nginxconf
+      - name: authInfo
+        configMap:
+          name: authInfo
