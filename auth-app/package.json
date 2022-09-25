@@ -1,0 +1,21 @@
+{
+  "name": "auth-app",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "serve": "live-server --port=8081 --no-browser",
+    "build-image": "docker build -t auth-app .",
+    "build": "webpack",
+    "start": "npm run build-image && docker run -p 8081:80 auth-app"
+  },
+  "author": "",
+  "license": "ISC",
+  "dev-dependencies": {
+    "live-server": "^1.2.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}

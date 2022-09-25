@@ -1,0 +1,31 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginxconf
+data:
+  default.conf: |
+    server {
+        listen 4000;
+
+        proxy_set_header X-Forwarded-For $proxy_protocol_addr; # To forward the original client's IP address 
+        proxy_set_header X-Forwarded-Proto $scheme; # to forward the  original protocol (HTTP or HTTPS)
+        proxy_set_header Host $host; # to forward the original host requested by the client
+
+        location / {
+            proxy_pass http://{{ include "dd-keycloak.authApp.service.name" . }}:{{ include "dd-keycloak.authApp.service.port" . }};
+        }
+
+        location ~ ^/(js|realms|resources|robots.txt)/ {
+            proxy_pass http://{{ .Release.Name }}-keycloak:{{ .Values.keycloak.service.ports.http }};
+            error_page 301 302 303 307 = @handle_redirect;
+        }
+
+        location @handle_redirect {
+          set $saved_redirect_location '$upstream_http_location';
+          proxy_pass $saved_redirect_location;
+        }
+
+        location /info {
+            proxy_pass http://{{ include "dd-keycloak.authInfoProvider.service.name" . }}:{{ include "dd-keycloak.authInfoProvider.service.port" . }};
+        }
+    }

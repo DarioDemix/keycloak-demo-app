@@ -1,0 +1,39 @@
+# Default values for dd-keycloak.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: postgres
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "14.5"
+
+authInfo:
+  realm: demo
+  client: auth-app
+  clientSecret: ""
+
+keycloak:
+  auth:
+    adminUser: admin
+    adminPassword: admin
+  postgresql:
+    enabled: false
+  externalDatabase:
+    host: "demix-pg"
+    port: 5432
+    user: postgres
+    password: keycloak
+    adminUser: admin
+    adminPassword: admin
+    database: postgres
+  proxyAddressForwarding: true
+
+nginxRP:
+  image: nginx
+
+authApp:
+  image: auth-app
+
+authInfoProvider:
+  image: auth-info-provider

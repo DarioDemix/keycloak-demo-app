@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dd-keycloak.fullname" . }}-auth-info-provider
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  selector:
+    matchLabels:
+      app: {{ include "dd-keycloak.fullname" . }}-auth-info-provider
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ include "dd-keycloak.fullname" . }}-auth-info-provider
+    spec:
+      containers:
+      - name: auth-info-provider
+        image: "{{ .Values.authInfoProvider.image }}"
+        imagePullPolicy: IfNotPresent
+        {{- with .Values.authInfo }}
+        env:
+        - name: REALM
+          value: {{ .realm }}
+        - name: CLIENT
+          value: {{ .client }}
+        - name: CLIENT_SECRET
+          value: {{ .clientSecret }} 
+        {{- end }}
+        ports:
+        - containerPort: 8080

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{- include "dd-keycloak.authInfoProvider.service.name" . }}"
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  type: ClusterIP
+  ports:
+  - port: {{ include "dd-keycloak.authInfoProvider.service.port" . }}
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: {{ include "dd-keycloak.fullname" . }}-auth-info-provider

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dd-keycloak.fullname" . }}-auth-app
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  selector:
+    matchLabels:
+      app: {{ include "dd-keycloak.fullname" . }}-auth-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ include "dd-keycloak.fullname" . }}-auth-app
+    spec:
+      containers:
+      - name: auth-app
+        image: "{{ .Values.authApp.image }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
