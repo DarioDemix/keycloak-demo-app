@@ -27,7 +27,7 @@ keycloak:
     adminUser: admin
     adminPassword: admin
     database: postgres
-  proxyAddressForwarding: true
+  proxy: edge
 
 nginxRP:
   image: nginx
